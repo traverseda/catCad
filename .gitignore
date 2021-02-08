@@ -1,4 +1,6 @@
 .cache/
+imgui.ini
+MAHI.log
 
 CMakeLists.txt.user
 CMakeCache.txt

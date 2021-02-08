@@ -5,7 +5,6 @@ FetchContent_MakeAvailable(mahi-gui)
 FetchContent_Declare(Gecode GIT_REPOSITORY https://github.com/Gecode/gecode.git)
 FetchContent_MakeAvailable(Gecode)
 
-
 FetchContent_Declare(Zep GIT_REPOSITORY https://github.com/Rezonality/zep.git)
 #FetchContent_MakeAvailable(Zep)
 project(catCad)
