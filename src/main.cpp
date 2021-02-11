@@ -2,22 +2,16 @@
 #include "imgui.h"
 #include <Mahi/Gui.hpp>
 #include <Mahi/Util.hpp>
-#include <memory>
 #include "apps/base.cpp"
 
 using namespace mahi::gui;
 using namespace mahi::util;
 std::string out;
 
-//Windows get their draw method called once per cycle
-std::list<std::unique_ptr<CatApp>> CatApps;
-//Apps that should get removed next frame. We can't remove apps in the middle of a frame
-std::deque<std::unique_ptr<CatApp>*> CatApps_to_remove;
-
 void clean_apps(){
     while (! CatApps_to_remove.empty()){
         auto app = CatApps_to_remove.front();
-        CatApps.remove(*app);
+        CatApps.remove(app);
         CatApps_to_remove.pop_front();
     }
 }
@@ -40,13 +34,12 @@ public:
             }
             if (ImGui::BeginMenu("Tools")){
                 if (ImGui::MenuItem("Sample")){
-                    CatApps.push_back(std::unique_ptr<CatApp>(new CatApp()));
-                }
+                    CatApps.push_back(std::shared_ptr<CatApp>(new CatApp()));
+                };
                 ImGui::EndMenu();
             }
         ImGui::EndMainMenuBar();
         ImGui::DockSpaceOverViewport();
-        //ImGui::ShowDemoWindow();
         for (auto const& app : CatApps) {
             app->raw_draw();
         }
