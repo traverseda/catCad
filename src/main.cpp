@@ -36,8 +36,21 @@ public:
                 if (ImGui::MenuItem("Sample")){
                     CatApps.push_back(std::shared_ptr<CatApp>(new CatApp()));
                 };
+                /*
+                if (ImGui::MenuItem("tty")){
+                    CatApps.push_back(std::shared_ptr<CatApp>(new Tty()));
+                };*/
                 ImGui::EndMenu();
             }
+            
+            //List windows in case someone loses one.
+            if (ImGui::BeginMenu("Windows")){
+                for (auto const& app : CatApps){
+                    ImGui::MenuItem( (app->appName+" @ "+app->appId()).c_str() );
+                }
+                ImGui::EndMenu();
+            }
+
         ImGui::EndMainMenuBar();
         ImGui::DockSpaceOverViewport();
         for (auto const& app : CatApps) {
